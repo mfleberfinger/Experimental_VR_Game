@@ -181,25 +181,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
---- !u!1 &1386854176 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1222736146739543451, guid: 69a81b0e2972c644eb4e908e0fcd6a13,
-    type: 3}
-  m_PrefabInstance: {fileID: 1964610800}
-  m_PrefabAsset: {fileID: 0}
---- !u!135 &1386854177
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1386854176}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1462994073
 GameObject:
   m_ObjectHideFlags: 0
@@ -278,11 +259,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: XR Rig
       objectReference: {fileID: 0}
-    - target: {fileID: 1222736147530047196, guid: 69a81b0e2972c644eb4e908e0fcd6a13,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 1222736147530047199, guid: 69a81b0e2972c644eb4e908e0fcd6a13,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -338,25 +314,15 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1222736147506641714, guid: 69a81b0e2972c644eb4e908e0fcd6a13,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1222736146739543451, guid: 69a81b0e2972c644eb4e908e0fcd6a13,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1222736148279617118, guid: 69a81b0e2972c644eb4e908e0fcd6a13,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6244421350070748872, guid: 69a81b0e2972c644eb4e908e0fcd6a13,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
+    - target: {fileID: 1964610802, guid: 69a81b0e2972c644eb4e908e0fcd6a13, type: 3}
+      propertyPath: pointer
+      value: 
+      objectReference: {fileID: 5717260981214306951}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 69a81b0e2972c644eb4e908e0fcd6a13, type: 3}
+--- !u!1 &5717260981214306951 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5717260981214306951, guid: 69a81b0e2972c644eb4e908e0fcd6a13,
+    type: 3}
+  m_PrefabInstance: {fileID: 1964610800}
+  m_PrefabAsset: {fileID: 0}
