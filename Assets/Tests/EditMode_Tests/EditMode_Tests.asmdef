@@ -1,0 +1,19 @@
+{
+    "name": "EditMode_Tests",
+    "references": [
+        "EditorScriptAssembly",
+        "GameLogic"
+    ],
+    "optionalUnityReferences": [
+        "TestAssemblies"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": []
+}
