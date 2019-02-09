@@ -9,14 +9,24 @@ public class Hand : MonoBehaviour
 	public string triggerTouchButtonName;
 	[Tooltip("Gameobject to visibly indicate where the player is pointing.")]
 	public GameObject pointer;
+	[Tooltip("Animation Controller Object")]
+	public GameObject animControlObj;
+    [Tooltip("Grip Axis ID")]
+    public string gripAxis;
+
+    private Animator m_animator;
 
 	private void Start()
 	{
 		pointer.SetActive(false);
+        m_animator = animControlObj.GetComponent<Animator>();
 	}
 
 	private void Update()
 	{
+        float gripInput = Input.GetAxisRaw(gripAxis);
+        m_animator.SetFloat("Grab", gripInput);
+        DebugMessenger.instance.SetDebugText(string.Format("input: {0}", gripInput));
 		Point();
 	}
 
