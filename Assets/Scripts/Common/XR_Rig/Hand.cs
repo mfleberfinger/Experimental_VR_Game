@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Hand : MonoBehaviour
 {
+	// Default value for the animator parameters controlling finger curl.
+	private const float RELAXED = 0.2f;
+
 	[Tooltip("The Unity \"Axis\" name for the capacitive touch sensor used to" +
 		" decide whether the player is pointing.")]
 	public string triggerTouchButtonName;
@@ -30,11 +33,11 @@ public class Hand : MonoBehaviour
 	/// <summary>
 	/// <c>true</c> if the grip button is pressed.
 	/// </summary>
-	public bool m_gripPressed
+	public float m_gripValue
 	{
 		get
 		{
-			return Input.GetAxisRaw(gripAxisName) >= 0.5f;
+			return Input.GetAxisRaw(gripAxisName);
 		}
 	}
 
@@ -49,31 +52,26 @@ public class Hand : MonoBehaviour
 	{
 		DebugMessenger.instance.SetDebugText(Input.GetAxisRaw("Grip - Left").ToString());
         Animate();
-		Point();
 	}
 
 	/// <summary>
-	/// Determine whether the player is pointing and display or hide pointer
-	/// visual.
-	/// </summary>
-	private void Point()
-	{
-		pointer.SetActive(!m_triggerTouched);
-	}
-
-	/// <summary>
-	/// Determine whether the hand should play the grip animation.
+	/// Do blend tree animation.
 	/// </summary>
 	private void Animate()
 	{
-		if (m_gripPressed && !m_animator.GetBool("IsGrabbing"))
-			m_animator.SetBool("IsGrabbing", true);
-		else if (!m_gripPressed && m_animator.GetBool("IsGrabbing"))
-			m_animator.SetBool("IsGrabbing", false);
+		float gripValue = RELAXED;
+
+		if (m_gripValue > 0.05)
+			gripValue = m_gripValue;
 		
-		if (!m_triggerTouched && !m_animator.GetBool("IsPointing"))
-			m_animator.SetBool("IsPointing", true);
-		else if (m_triggerTouched && m_animator.GetBool("IsPointing"))
-			m_animator.SetBool("IsPointing", false);
+		// Set thumb, middle, ring, and pinky fingers.
+		m_animator.SetFloat("GripCurl", gripValue);
+		
+		// If the trigger is touched, the index finger follows the other fingers.
+		// Otherwise, it is straightened as if pointing.
+		if (m_triggerTouched)
+			m_animator.SetFloat("IndexCurl", gripValue);
+		else
+			m_animator.SetFloat("IndexCurl", 0f);
 	}
 }
