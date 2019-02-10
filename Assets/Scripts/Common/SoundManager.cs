@@ -4,7 +4,7 @@ public class SoundManager : MonoBehaviour
 {
 	[Tooltip("Audio source component for this sound producing object.")]
 	[SerializeField]
-	private AudioSource efxSource;
+	private AudioSource efxSource = null;
 	
 	//used to produce random variation in pitch of sound effects
 	public float lowPitchRange = 0.95f;
