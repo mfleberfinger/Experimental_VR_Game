@@ -8,4 +8,7 @@ EditorBuildSettings:
   - enabled: 0
     path: 
     guid: 00000000000000000000000000000000
+  - enabled: 1
+    path: Assets/Scenes/Matt_Experiments/Hands.unity
+    guid: 5803855bf859fbb4fa3749a4da6c864d
   m_configObjects: {}
