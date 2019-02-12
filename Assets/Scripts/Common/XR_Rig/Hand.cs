@@ -61,7 +61,7 @@ public class Hand : MonoBehaviour
 	{
 		float gripValue = RELAXED;
 
-		if (m_gripValue > 0.05)
+		if (m_gripValue > RELAXED)
 			gripValue = m_gripValue;
 		
 		// Set thumb, middle, ring, and pinky fingers.
