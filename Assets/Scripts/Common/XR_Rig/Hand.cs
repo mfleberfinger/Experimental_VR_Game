@@ -17,9 +17,11 @@ public class Hand : MonoBehaviour
 	public float relaxedThreshold = 0.2f;
 	[Tooltip("The minimum grip axis value (how tight the fist must be) required" +
 		"to point at UI elements.")]
-	public float pointThreshold = 0.9f;
+	public float m_pointThreshold = 0.9f;
 
     private Animator m_animator;
+    private LineRenderer m_pointer;
+    private Color m_endColor;
 
 	/// <summary>
 	/// <c>true</c> if the player is touching the trigger on the Rift controller.
@@ -45,8 +47,9 @@ public class Hand : MonoBehaviour
 
 	private void Start()
 	{
-		pointer.SetActive(false);
         m_animator = animControlObj.GetComponent<Animator>();
+        m_pointer = pointer.GetComponent<LineRenderer>();
+        m_endColor = m_pointer.endColor;
 	}
 
 	private void Update()
@@ -82,9 +85,21 @@ public class Hand : MonoBehaviour
 	/// </summary>
 	private void AttemptToPoint()
 	{
-		if (!m_triggerTouched && m_gripValue > pointThreshold)
-			pointer.SetActive(true);
-		else
-			pointer.SetActive(false);
+        RaycastHit hitto;
+        const float lineLimit = 300;
+        m_pointer.SetPosition(0, transform.parent.position);
+        if (!m_triggerTouched && m_gripValue > m_pointThreshold)
+            if (Physics.Raycast(transform.parent.position, transform.parent.up, out hitto, lineLimit))
+            {
+                m_pointer.SetPosition(1, hitto.point);
+                m_pointer.endColor = m_pointer.startColor;
+            }
+            else
+            {
+                m_pointer.SetPosition(1, transform.parent.up*lineLimit);
+                m_pointer.endColor = m_endColor;
+            }
+        else
+            m_pointer.SetPosition(1, transform.parent.position);
 	}
 }
