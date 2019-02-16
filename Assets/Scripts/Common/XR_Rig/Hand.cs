@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class Hand : MonoBehaviour
 {
-	// Default value for the animator parameters controlling finger curl.
-	private const float RELAXED = 0.2f;
-
 	[Tooltip("The Unity \"Axis\" name for the capacitive touch sensor used to" +
 		" decide whether the player is pointing.")]
 	public string triggerTouchButtonName;
@@ -16,6 +13,11 @@ public class Hand : MonoBehaviour
 	public GameObject pointer;
 	[Tooltip("Animation Controller Object")]
 	public GameObject animControlObj;
+	[Tooltip("Default value for the animator parameter controlling finger curl.")]
+	public float relaxedThreshold = 0.2f;
+	[Tooltip("The minimum grip axis value (how tight the fist must be) required" +
+		"to point at UI elements.")]
+	public float pointThreshold = 0.9f;
 
     private Animator m_animator;
 
@@ -41,7 +43,6 @@ public class Hand : MonoBehaviour
 		}
 	}
 
-
 	private void Start()
 	{
 		pointer.SetActive(false);
@@ -50,8 +51,8 @@ public class Hand : MonoBehaviour
 
 	private void Update()
 	{
-		DebugMessenger.instance.SetDebugText(Input.GetAxisRaw("Grip - Left").ToString());
         Animate();
+		AttemptToPoint();
 	}
 
 	/// <summary>
@@ -59,9 +60,9 @@ public class Hand : MonoBehaviour
 	/// </summary>
 	private void Animate()
 	{
-		float gripValue = RELAXED;
+		float gripValue = relaxedThreshold;
 
-		if (m_gripValue > RELAXED)
+		if (m_gripValue > relaxedThreshold)
 			gripValue = m_gripValue;
 		
 		// Set thumb, middle, ring, and pinky fingers.
@@ -73,5 +74,17 @@ public class Hand : MonoBehaviour
 			m_animator.SetFloat("IndexCurl", gripValue);
 		else
 			m_animator.SetFloat("IndexCurl", 0f);
+	}
+
+	/// <summary>
+	/// Decide whether the player is pointing, then display the pointer visual
+	/// and raycast to UI elements if required.
+	/// </summary>
+	private void AttemptToPoint()
+	{
+		if (!m_triggerTouched && m_gripValue > pointThreshold)
+			pointer.SetActive(true);
+		else
+			pointer.SetActive(false);
 	}
 }
