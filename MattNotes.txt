@@ -1,0 +1,46 @@
+__VR UI__
+
+Make VR buttons that can be used by physics raycasting.
+
+
+Button (write tests before writing functions):
+	- A button has a default state, a hovered state, and a pressed state.
+		+ Like with Unity's UI buttons, a color will be assigned to each state
+			through the editor.
+	- A button will have a collider attached, set as a trigger.
+		+ This is used for raycasting or touching the button.
+	- A button will have callback functions assigned through the editor,
+		similar to Unity's buttons.
+	- Methods:
+		HoverStart():
+			Set color to hovered color.
+		HoverEnd():
+			Set color to default color.
+		Press():
+			Call the callback functions.
+	- Data:
+		public UnityEvent callbacks:
+			The methods to be called when the button is pressed.
+		public Color defaultColor
+		public Color hoveredColor
+		public Image image:
+			The image used to represent the button.
+			
+	
+RayPointer (write tests before writing functions):
+	- A RayPointer is given a reference to a transform to determine where to
+		raycast from and in which direction.
+	- A RayPointer will raycast on FixedUpdate() and tell any button encountered
+		that it is being hovered over.
+		+ When a button is encountered it is saved as hoveredButton and
+			hoveredButton.HoverStart() is called.
+		+ On each frame in which the raycast hits something, RayPointer will
+			compare hoveredButton with the hit thing. If that thing is not
+			hoveredButton, hoveredButton.HoverEnd() is called. If the hit thing
+			is another button, a reference is stored in hoveredButton. Otherwise,
+			hoveredButton is set to null.
+		+ On a frame where the raycast hits nothing, hoveredButton.HoverEnd()
+			called and hoveredButton is set to null.
+	- When the click/press action occurs, the RayPointer will call the Press()
+		function of the button it is raycasting to. If it is not raycasting to
+		a button, it will do nothing.
