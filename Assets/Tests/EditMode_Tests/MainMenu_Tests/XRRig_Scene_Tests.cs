@@ -24,25 +24,27 @@ namespace Tests
 		/// Test for the XR Rig's existence in the scene.
 		/// </summary>
 		[Test]
-		public void XR_Rig_Found_Test()
+		public void XRRig_Found_Test()
 		{
 			GameObject rig = null;
-			rig = GameObject.Find("XR Rig");
-			Assert.That(rig, Is.Not.Null, "XR Rig not in scene or not enabled.");
+			rig = GameObject.Find("XRRig");
+			Assert.That(rig, Is.Not.Null, "GameObject named \"XRRig\" not in" +
+				" scene or not enabled.");
 		}
 
 		/// <summary>
 		/// Test for a camera on the XR Rig.
 		/// </summary>
 		[Test]
-		public void XR_Rig_Has_Camera_Test()
+		public void XRRig_Has_Camera_Test()
 		{
 			GameObject rig = null;
 			Camera cam = null;
 
 			// Assumptions
-			rig = GameObject.Find("XR Rig");
-			Assume.That(rig, Is.Not.Null, "XR Rig not in scene or not enabled.");
+			rig = GameObject.Find("XRRig");
+			Assert.That(rig, Is.Not.Null, "GameObject named \"XRRig\" not in" +
+				" scene or not enabled.");
 
 			// Assertions
 			cam = rig.GetComponentInChildren<Camera>();
@@ -54,14 +56,15 @@ namespace Tests
 		/// each hand.
 		/// </summary>
 		[Test]
-		public void XR_Rig_Has_TrackedPoseDrivers()
+		public void XRRig_Has_TrackedPoseDrivers()
 		{
 			GameObject rig = null;
 			TrackedPoseDriver[] trackedPoseDrivers = null;
 
 			// Assumptions
-			rig = GameObject.Find("XR Rig");
-			Assume.That(rig, Is.Not.Null, "XR Rig not in scene or not enabled.");
+			rig = GameObject.Find("XRRig");
+			Assert.That(rig, Is.Not.Null, "GameObject named \"XRRig\" not in" +
+				" scene or not enabled.");
 
 			// Assertions
 			trackedPoseDrivers = rig.GetComponentsInChildren<TrackedPoseDriver>();

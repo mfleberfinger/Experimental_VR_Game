@@ -15,12 +15,27 @@ public class VRButton : MonoBehaviour
 	[Tooltip("The image used to represent the button.")]
 	public Image image;
 
-    void Start()
-    {
-    }
+	/// <summary>
+	/// Tell the button that it is being hovered over.
+	/// </summary>
+	public void HoverStart()
+	{
+		image.color = hoveredColor;
+	}
 
-    void Update()
-    {
-        
-    }
+	/// <summary>
+	/// Tell the button that it is no longer being hovered over.
+	/// </summary>
+	public void HoverEnd()
+	{
+		image.color = defaultColor;
+	}
+
+	/// <summary>
+	/// Press the button, causing it to call its callback functions.
+	/// </summary>
+	public void Press()
+	{
+		callbacks.Invoke();
+	}
 }

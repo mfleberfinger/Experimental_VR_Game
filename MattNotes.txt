@@ -27,7 +27,7 @@ Button (write tests before writing functions):
 			The image used to represent the button.
 			
 	
-RayPointer (write tests before writing functions):
+RayPointer (Ideally tests would be written but may be more trouble than they're worth):
 	- A RayPointer is given a reference to a transform to determine where to
 		raycast from and in which direction.
 	- A RayPointer will raycast on FixedUpdate() and tell any button encountered
@@ -40,7 +40,13 @@ RayPointer (write tests before writing functions):
 			is another button, a reference is stored in hoveredButton. Otherwise,
 			hoveredButton is set to null.
 		+ On a frame where the raycast hits nothing, hoveredButton.HoverEnd()
-			called and hoveredButton is set to null.
+			is called and hoveredButton is set to null.
 	- When the click/press action occurs, the RayPointer will call the Press()
 		function of the button it is raycasting to. If it is not raycasting to
 		a button, it will do nothing.
+	- Data:
+		public VRButton hoveredButton { get; private set; }:
+			The button the player is pointing at. Null if no button is pointed at.
+		public Transform raycastOrigin:
+			Transform from which to raycast. Transform.Forward will be used
+			to set direction.

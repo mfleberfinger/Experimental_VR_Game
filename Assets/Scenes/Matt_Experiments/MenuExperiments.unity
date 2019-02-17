@@ -124,6 +124,7 @@ GameObject:
   - component: {fileID: 310165508}
   - component: {fileID: 310165507}
   - component: {fileID: 310165506}
+  - component: {fileID: 310165509}
   - component: {fileID: 310165505}
   m_Layer: 5
   m_Name: Button (1)
@@ -180,22 +181,23 @@ MonoBehaviour:
   callbacks:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1651788554}
-        m_MethodName: SetDebugText
-        m_Mode: 5
+      - m_Target: {fileID: 310165509}
+        m_MethodName: SetColor
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: This works.
+          m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  trigger: {fileID: 0}
-  defaultColor: {r: 0, g: 0, b: 0, a: 0}
-  hoveredColor: {r: 0, g: 0, b: 0, a: 0}
+  trigger: {fileID: 310165505}
+  defaultColor: {r: 1, g: 1, b: 1, a: 0.7058824}
+  hoveredColor: {r: 0.8113208, g: 0.8113208, b: 0.8113208, a: 0.7058824}
+  image: {fileID: 310165507}
 --- !u!114 &310165507
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -209,7 +211,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.7058824}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -233,6 +235,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 310165503}
   m_CullTransparentMesh: 0
+--- !u!114 &310165509
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 310165503}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04f36d628c1631e4b8da35488898cda6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  color: {r: 1, g: 0, b: 0, a: 1}
+  image: {fileID: 448442124}
 --- !u!1 &440775071
 GameObject:
   m_ObjectHideFlags: 0
@@ -673,6 +689,7 @@ GameObject:
   - component: {fileID: 613020128}
   - component: {fileID: 613020127}
   - component: {fileID: 613020126}
+  - component: {fileID: 613020129}
   - component: {fileID: 613020125}
   m_Layer: 5
   m_Name: Button (2)
@@ -729,22 +746,23 @@ MonoBehaviour:
   callbacks:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1651788554}
-        m_MethodName: SetDebugText
-        m_Mode: 5
+      - m_Target: {fileID: 613020129}
+        m_MethodName: SetColor
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: This works.
+          m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  trigger: {fileID: 0}
-  defaultColor: {r: 0, g: 0, b: 0, a: 0}
-  hoveredColor: {r: 0, g: 0, b: 0, a: 0}
+  trigger: {fileID: 613020125}
+  defaultColor: {r: 1, g: 1, b: 1, a: 0.7058824}
+  hoveredColor: {r: 0.8113208, g: 0.8113208, b: 0.8113208, a: 0.7058824}
+  image: {fileID: 613020127}
 --- !u!114 &613020127
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -758,7 +776,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.7058824}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -782,6 +800,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 613020123}
   m_CullTransparentMesh: 0
+--- !u!114 &613020129
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 613020123}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04f36d628c1631e4b8da35488898cda6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  color: {r: 0, g: 0.12585497, b: 1, a: 1}
+  image: {fileID: 448442124}
 --- !u!1 &745313015
 GameObject:
   m_ObjectHideFlags: 0
@@ -863,6 +895,7 @@ GameObject:
   - component: {fileID: 829385226}
   - component: {fileID: 829385225}
   - component: {fileID: 829385224}
+  - component: {fileID: 829385227}
   - component: {fileID: 829385223}
   m_Layer: 5
   m_Name: Button
@@ -919,22 +952,23 @@ MonoBehaviour:
   callbacks:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1651788554}
-        m_MethodName: SetDebugText
-        m_Mode: 5
+      - m_Target: {fileID: 829385227}
+        m_MethodName: SetColor
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: This works.
+          m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  trigger: {fileID: 0}
-  defaultColor: {r: 0, g: 0, b: 0, a: 0}
-  hoveredColor: {r: 0, g: 0, b: 0, a: 0}
+  trigger: {fileID: 829385223}
+  defaultColor: {r: 1, g: 1, b: 1, a: 0.7058824}
+  hoveredColor: {r: 0.8113208, g: 0.8113208, b: 0.8113208, a: 0.7058824}
+  image: {fileID: 829385225}
 --- !u!114 &829385225
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -948,7 +982,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.7058824}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -972,6 +1006,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 829385221}
   m_CullTransparentMesh: 0
+--- !u!114 &829385227
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 829385221}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04f36d628c1631e4b8da35488898cda6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  color: {r: 0, g: 0, b: 0, a: 1}
+  image: {fileID: 448442124}
 --- !u!1 &995438189
 GameObject:
   m_ObjectHideFlags: 0
@@ -1358,18 +1406,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 40, z: 0}
---- !u!114 &1651788554 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1222736147309058145, guid: 2975b284eff10534196dee28a2c79fb7,
-    type: 3}
-  m_PrefabInstance: {fileID: 1394302009}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6c6fb755a357db244aeaf2d43e7f32d2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1653873334
 GameObject:
   m_ObjectHideFlags: 0

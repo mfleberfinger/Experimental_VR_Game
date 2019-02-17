@@ -20,7 +20,7 @@ public class DebugMessenger : Singleton<DebugMessenger>
 
 	private void Update()
 	{
-		if(Input.GetButtonDown("Fire2"))
+		if(Input.GetButtonDown("Fire1"))
 			ToggleDisplay();
 	}
 
