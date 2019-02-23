@@ -15,6 +15,9 @@ public class Hand : MonoBehaviour
 	public GameObject animControlObj;
 	[Tooltip("Default value for the animator parameter controlling finger curl.")]
 	public float relaxedThreshold = 0.2f;
+	[Tooltip("Transform from which to raycast. Transform.Forward will be used" +
+		" to set direction.")]
+	public Transform raycastOrigin;
 	[Tooltip("The minimum grip axis value (how tight the fist must be) required" +
 		"to point at UI elements.")]
 	public float pointThreshold = 0.9f;
@@ -87,24 +90,26 @@ public class Hand : MonoBehaviour
 	{
         RaycastHit hitto;
         const float lineLimit = 300;
-        m_pointer.SetPosition(0, transform.parent.position);
+        Vector3 from = raycastOrigin.position;
+        Vector3 to = raycastOrigin.forward;
+
         if (!m_triggerTouched && m_gripValue > pointThreshold) // If pointing
 		{
-			pointer.SetActive(true);
-            if (Physics.Raycast(transform.parent.position, transform.parent.up, out hitto, lineLimit))
+            m_pointer.SetPosition(0, from);
+            if (Physics.Raycast(from, to, out hitto, lineLimit))
             {
                 m_pointer.SetPosition(1, hitto.point);
                 m_pointer.endColor = m_pointer.startColor;
             }
             else
             {
-                m_pointer.SetPosition(1, transform.parent.up*lineLimit);
+                m_pointer.SetPosition(1, to*lineLimit);
                 m_pointer.endColor = m_endColor;
             }
+			pointer.SetActive(true);
 		}
         else
 		{
-            m_pointer.SetPosition(1, transform.parent.position);
 			pointer.SetActive(false);
 		}
 	}
