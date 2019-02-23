@@ -17,7 +17,7 @@ public class Hand : MonoBehaviour
 	public float relaxedThreshold = 0.2f;
 	[Tooltip("The minimum grip axis value (how tight the fist must be) required" +
 		"to point at UI elements.")]
-	public float m_pointThreshold = 0.9f;
+	public float pointThreshold = 0.9f;
 
     private Animator m_animator;
     private LineRenderer m_pointer;
@@ -48,7 +48,7 @@ public class Hand : MonoBehaviour
 	private void Start()
 	{
         m_animator = animControlObj.GetComponent<Animator>();
-        m_pointer = pointer.GetComponent<LineRenderer>();
+        m_pointer = pointer.GetComponentInChildren<LineRenderer>();
         m_endColor = m_pointer.endColor;
 	}
 
@@ -88,7 +88,9 @@ public class Hand : MonoBehaviour
         RaycastHit hitto;
         const float lineLimit = 300;
         m_pointer.SetPosition(0, transform.parent.position);
-        if (!m_triggerTouched && m_gripValue > m_pointThreshold)
+        if (!m_triggerTouched && m_gripValue > pointThreshold) // If pointing
+		{
+			pointer.SetActive(true);
             if (Physics.Raycast(transform.parent.position, transform.parent.up, out hitto, lineLimit))
             {
                 m_pointer.SetPosition(1, hitto.point);
@@ -99,7 +101,11 @@ public class Hand : MonoBehaviour
                 m_pointer.SetPosition(1, transform.parent.up*lineLimit);
                 m_pointer.endColor = m_endColor;
             }
+		}
         else
+		{
             m_pointer.SetPosition(1, transform.parent.position);
+			pointer.SetActive(false);
+		}
 	}
 }
