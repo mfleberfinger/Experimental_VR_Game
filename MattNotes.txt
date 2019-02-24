@@ -50,3 +50,11 @@ RayPointer (Ideally tests would be written but may be more trouble than they're 
 		public Transform raycastOrigin:
 			Transform from which to raycast. Transform.Forward will be used
 			to set direction.
+
+
+UIColliderScaler
+	- Attached to a UI object with a box collider and given a reference to the
+		box collider. 
+	- Scales the collider on the x and y axes to match the size of the UI element
+		to which it is attached.
+	- Position and z-scale will not be modified.
