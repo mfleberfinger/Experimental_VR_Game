@@ -344,7 +344,7 @@ PrefabInstance:
     - target: {fileID: 4944162853574130011, guid: 6c6ddb102db3b204b9026d96dac15ac7,
         type: 3}
       propertyPath: m_Name
-      value: VRButton
+      value: PlayButton
       objectReference: {fileID: 0}
     - target: {fileID: 8327141463878514503, guid: 6c6ddb102db3b204b9026d96dac15ac7,
         type: 3}
@@ -451,6 +451,46 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 5639977513476285098, guid: 6c6ddb102db3b204b9026d96dac15ac7,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0.17690973
+      objectReference: {fileID: 0}
+    - target: {fileID: 5639977513476285098, guid: 6c6ddb102db3b204b9026d96dac15ac7,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0.046101812
+      objectReference: {fileID: 0}
+    - target: {fileID: 5639977513476285098, guid: 6c6ddb102db3b204b9026d96dac15ac7,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0.26415092
+      objectReference: {fileID: 0}
+    - target: {fileID: 1775546436644417674, guid: 6c6ddb102db3b204b9026d96dac15ac7,
+        type: 3}
+      propertyPath: callbacks.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1775546436644417674, guid: 6c6ddb102db3b204b9026d96dac15ac7,
+        type: 3}
+      propertyPath: callbacks.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Play
+      objectReference: {fileID: 0}
+    - target: {fileID: 1775546436644417674, guid: 6c6ddb102db3b204b9026d96dac15ac7,
+        type: 3}
+      propertyPath: callbacks.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1775546436644417674, guid: 6c6ddb102db3b204b9026d96dac15ac7,
+        type: 3}
+      propertyPath: callbacks.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 1775546436644417674, guid: 6c6ddb102db3b204b9026d96dac15ac7,
+        type: 3}
+      propertyPath: callbacks.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 1775546436644417674, guid: 6c6ddb102db3b204b9026d96dac15ac7,
         type: 3}
       propertyPath: defaultColor.r
@@ -505,21 +545,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Text
       value: PLAY
-      objectReference: {fileID: 0}
-    - target: {fileID: 5639977513476285098, guid: 6c6ddb102db3b204b9026d96dac15ac7,
-        type: 3}
-      propertyPath: m_Color.r
-      value: 0.17690973
-      objectReference: {fileID: 0}
-    - target: {fileID: 5639977513476285098, guid: 6c6ddb102db3b204b9026d96dac15ac7,
-        type: 3}
-      propertyPath: m_Color.g
-      value: 0.046101812
-      objectReference: {fileID: 0}
-    - target: {fileID: 5639977513476285098, guid: 6c6ddb102db3b204b9026d96dac15ac7,
-        type: 3}
-      propertyPath: m_Color.b
-      value: 0.26415092
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6c6ddb102db3b204b9026d96dac15ac7, type: 3}

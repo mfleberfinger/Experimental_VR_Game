@@ -343,6 +343,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1868049675}
+  - component: {fileID: 1868049676}
   m_Layer: 0
   m_Name: WorldSpaceUI
   m_TagString: Untagged
@@ -367,6 +368,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1868049676
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1868049674}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbc0ad3b286d1df4fae474bc94d12209, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scenePath: Scenes/Game
 --- !u!1001 &756718493704324929
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -434,6 +448,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8351719624770316697, guid: 612d656091855944d8e2ebca6eec54e6,
+        type: 3}
+      propertyPath: callbacks.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1868049676}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 612d656091855944d8e2ebca6eec54e6, type: 3}
 --- !u!1001 &8089583721621046990
@@ -502,6 +521,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2393796095355862905, guid: 2959c2815cef159408974e262ae3d8e4,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -3.0126953
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2959c2815cef159408974e262ae3d8e4, type: 3}
