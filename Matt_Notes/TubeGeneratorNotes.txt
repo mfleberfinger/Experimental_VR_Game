@@ -1,0 +1,24 @@
+__Tube Generator__
+
+As the object to which the TubeGenerator script is attached moves through space,
+	segments of tube mesh are generated behind the object out to some maximum
+	distance.
+To avoid generating an endlessly growing mesh, each segment will be an individual
+	mesh, which will be deleted some time after the player has passed through it.
+
+
+The tube generator game object will follow the same path as
+	the player (defined by some curve calculated based on a random seed
+	and distance from the starting point, but will stay ahead of the player.
+	- Calculate the center points in scene world space as follows, where
+		(x, y, z) is the position in the Unity scene's world space, and
+		xpx, xpy, ypx, and ypy are randomly generated at the start of
+		the game and remain constant thereafter.
+		x = Perlin(z + xpx, ypx) - Perlin(xpx, ypx)
+		y = Perlin(z + xpy, ypy) - Perlin(xpy, ypy)
+
+		Important: The player's speed along the path will be controlled
+			(either constant or steadily increasing) by being controlled
+			between the points defined by this math. The math is only
+			defining the path that will be followed by the player, to
+			which the tube generator will be attached.
