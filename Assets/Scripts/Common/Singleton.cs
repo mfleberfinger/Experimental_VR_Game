@@ -13,13 +13,16 @@ public abstract class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 	/// <param name="thisObject">Usually <c>this</c>.</param>
 	protected void InitializeSingleton(T thisObject)
 	{
-		if(instance == null)
-			instance = thisObject;
-		else if(instance != thisObject)
-		{
-			Destroy(thisObject.gameObject);
-			Debug.LogWarning("An extra instance of a singleton was detected and" +
-				" destroyed.");
-		}
+        if (instance == null)
+        {
+            instance = thisObject;
+            DontDestroyOnLoad(thisObject.gameObject);
+        }
+        else if (instance != thisObject)
+        {
+            Destroy(thisObject.gameObject);
+            Debug.LogWarning("An extra instance of a singleton was detected and" +
+                " destroyed.");
+        }
 	}
 }

@@ -5,13 +5,19 @@ using UnityEngine;
 /// <summary>
 /// Singleton for keeping track of players' scores.
 /// </summary>
-public class ScoreKeeper : Singleton<ScoreKeeper>
+public class ScoreKeeper
 {
 	private List<KeyValuePair<string, int>> m_scoreList;
+    private static ScoreKeeper m_inst = null; // singleton instance
 
-    void Start()
+    public static ScoreKeeper instance()
     {
-        InitializeSingleton(this);
+        if (m_inst == null) m_inst = new ScoreKeeper();
+        return m_inst;
+    }
+
+    private ScoreKeeper()
+    {
 		m_scoreList = new List<KeyValuePair<string, int>>();
     }
 
@@ -30,7 +36,7 @@ public class ScoreKeeper : Singleton<ScoreKeeper>
 	/// </summary>
 	/// <param name="name">Name to associate with the score.</param>
 	/// <param name="score">The score to add to the list.</param>
-	public void AddScore(string name, int score)
+	public void SetScore(string name, int score)
 	{
 		m_scoreList.Add(new KeyValuePair<string, int>(name, score));
 	}
