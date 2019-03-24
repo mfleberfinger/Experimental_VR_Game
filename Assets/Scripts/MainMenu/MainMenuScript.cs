@@ -18,4 +18,12 @@ public class MainMenuScript : MonoBehaviour
 	{
 		SceneManager.LoadScene(scenePath);
 	}
+
+	/// <summary>
+	/// Toggles the main-menu right-panel between score and achievements
+	/// </summary>
+	public void toggleScore(GameObject scoreMenu)
+	{
+		//SceneManager.LoadScene(scenePath);
+	}
 }

@@ -1,0 +1,16 @@
+{
+    "name": "externalAsm",
+    "references": [
+        "Unity.TextMeshPro.Editor",
+        "Unity.TextMeshPro",
+        "GameLogic"
+    ],
+    "optionalUnityReferences": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": true,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": []
+}

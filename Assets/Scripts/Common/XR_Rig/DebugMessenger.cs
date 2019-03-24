@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using VRUtil;
 
 /// <summary>
 /// Simple script for displaying messages that can be read by a person wearing

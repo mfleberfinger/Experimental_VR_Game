@@ -1,15 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEngine.UI;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
+using VRUtil;
 
 public class ListScoreText : MonoBehaviour
 {
-    Text m_scoreText = null;
+    TextMeshPro m_scoreText = null;
     // Start is called before the first frame update
     void Start()
     {
-        m_scoreText = GetComponent<Text>();
+        m_scoreText = GetComponent<TextMeshPro>();
 
         //TODO: delete next two lines when score is populated
         ScoreKeeper.instance().SetScore("who", 20);
@@ -17,6 +19,7 @@ public class ListScoreText : MonoBehaviour
 
         foreach (var pair in ScoreKeeper.instance().GetScores())
         {
+            //m_scoreText.SetText(string.Format("{0} : {1}\n", pair.Key, pair.Value));
             m_scoreText.text += string.Format("{0} : {1}\n", pair.Key, pair.Value);
         }
     }

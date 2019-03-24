@@ -2,27 +2,30 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Singleton<T> : MonoBehaviour where T : MonoBehaviour
+namespace VRUtil
 {
-	public static T instance { get; private set; }
+    public abstract class Singleton<T> : MonoBehaviour where T : MonoBehaviour
+    {
+        public static T instance { get; private set; }
 
-	/// <summary>
-	/// Sets the static variable "instance" or deletes this game object if an
-	/// instance already exists.
-	/// </summary>
-	/// <param name="thisObject">Usually <c>this</c>.</param>
-	protected void InitializeSingleton(T thisObject)
-	{
-        if (instance == null)
+        /// <summary>
+        /// Sets the static variable "instance" or deletes this game object if an
+        /// instance already exists.
+        /// </summary>
+        /// <param name="thisObject">Usually <c>this</c>.</param>
+        protected void InitializeSingleton(T thisObject)
         {
-            instance = thisObject;
-            DontDestroyOnLoad(thisObject.gameObject);
+            if (instance == null)
+            {
+                instance = thisObject;
+                DontDestroyOnLoad(thisObject.gameObject);
+            }
+            else if (instance != thisObject)
+            {
+                Destroy(thisObject.gameObject);
+                Debug.LogWarning("An extra instance of a singleton was detected and" +
+                    " destroyed.");
+            }
         }
-        else if (instance != thisObject)
-        {
-            Destroy(thisObject.gameObject);
-            Debug.LogWarning("An extra instance of a singleton was detected and" +
-                " destroyed.");
-        }
-	}
+    }
 }
