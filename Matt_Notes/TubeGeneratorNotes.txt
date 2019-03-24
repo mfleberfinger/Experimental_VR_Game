@@ -1,4 +1,4 @@
-__Tube Generator__
+__Overview of Tube Generation and Player/Tube Path__
 
 As the object to which the TubeGenerator script is attached moves through space,
 	segments of tube mesh are generated behind the object out to some maximum
@@ -22,3 +22,47 @@ The tube generator game object will follow the same path as
 			between the points defined by this math. The math is only
 			defining the path that will be followed by the player, to
 			which the tube generator will be attached.
+
+
+__Tube Generator__
+
+As the object to which the TubeGenerator script is attached moves through space,
+	segments of tube mesh are generated behind the object out to some maximum
+	distance.
+To avoid generating an endlessly growing mesh, each segment will be an individual
+	mesh, which will be deleted some time after the player has passed through it.
+
+It may be best to keep the game objects in an object pool and keep moving them
+	and replacing their meshes, rather than deleting and creating them.
+
+Process:
+	- Start
+		+ Tube generator is at its starting location.
+		+ Nothing has been generated.
+		+ Log current position as startOfSegment.
+	- Movement occurs.
+		+ While moving, poll tubeGenerator.transform.position.
+		+ Compare position with startOfSegment.
+		+ Once Vector3.Distance(position, startOfSegment) > segmentLength, go
+			to next step.
+			-> Alternatively, set a ringSpacing variable to determine distance
+				between rings and make each segment of several rings rather than
+				two. In this case, the ring position would be logged several
+				times before going to the next step. The "Create segment" step
+				would then use the logged positions to create several rings
+				and connect them all to generate the mesh for the segment.
+	- Create segment.
+		+ Create a game object, positioned at startOfSegment.
+		+ Create a ring of evenly spaced vertices, of diameter segmentDiameter,
+			centered at (0, 0, 0) in local coordinates
+			(i.e. transform.position of the new game object).
+		+ Create a ring of evenly spaced vertices, of diameter segmentDiameter,
+			centered at the current position of the tube generator:
+				newGameObject.InverseTransformPoint(tubeGenerator.transform.Position).
+		+ Join the two rings of vertices with edges, apply triangles, uvs, etc.
+		+ Apply the mesh to the game object.
+		+ Add a mesh collider to the segment to keep the player inside?
+	- Reset for next segment.
+		+ startOfSegment = tubeGenerator.transform.position
+		+ Add new segment to queue of segments.
+		+ If segmentQueue.Length > segmentMax, delete the oldest segment(s).
