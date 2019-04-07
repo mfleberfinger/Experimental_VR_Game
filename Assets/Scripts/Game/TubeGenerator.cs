@@ -26,57 +26,120 @@ public class TubeGenerator : MonoBehaviour
 	private Vector3 m_startOfSegment;
 	private Queue<GameObject> m_segments;
 
-	//TODO: Delete test code.
-	Vector3 lastPlacement;
-
 	private void Start()
 	{
 		m_startOfSegment = transform.position;
 		m_segments = new Queue<GameObject>();
-		m_originalCircle = DefineCircle(ringVertexCount, radius);
-		//TODO: Delete test code.
-		lastPlacement = transform.position;
 	}
 
 	private void Update()
 	{
-		//TODO: Delete test code.
-		//---------------Test Code----------------
-		if (Vector3.Distance(lastPlacement, transform.position) > 0.01f)
-		{
-			GameObject s;
-			Vector3[] vees = RotatePoints(m_originalCircle, Vector3.forward, transform.forward);
-			vees = TranslatePoints(vees, Vector3.zero, transform.position);
-			foreach(Vector3 v in vees)
-			{
-				s = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-				s.transform.localScale = s.transform.localScale * 0.01f;
-				s.transform.position = v;
-			}
-			lastPlacement = transform.position;
-		}
-		//---------------Test Code----------------
+
 	}
 
 
 	/// <summary>
-	/// Create a ring of vertices in the given plane, connected by edges with
-	/// the normals facing toward the center of the ring.
+	/// Define a ring of vertices in a given plane, with the normals facing
+	/// toward the center of the ring.
 	/// </summary>
-	/// <param name="numberOfVertices">Number of vertices to use in the ring.</param>
-	/// <param name="radius">Radius of the circle on which the vertices will be placed.</param>
+	/// <remarks>
+	/// The UVs are not defined by this function because they will vary based on
+	/// where the ring is used in the final mesh. The coordinate for the center
+	/// will be in the mesh/gameobject's local space (because this is how Unity's
+	/// meshes work).
+	/// </remarks>
 	/// <param name="center">Center of the ring/circle.</param>
-	/// <param name="plane">A unit vector defining the plane that the circle will
-	/// be generated within.</param>
+	/// <param name="facing">Vector giving the direction in which the circle
+	/// will face.</param>
 	/// <param name="vertices">Array to store the calculated vertex positions.</param>
 	/// <param name="normals">Array to store the calculated normals.</param>
-	/// <param name="uv">Array to store the calculated UVs.</param>
-	private void CreateVertexRing(int numberOfVertices, float radius, Vector3 center,
-		Vector3 plane, out Vector3[] vertices, out Vector3[] normals, out Vector2[] uv)
+	private void DefineVertexRing(Vector3 center, Vector3 facing,
+		out Vector3[] vertices, out Vector3[] normals)
 	{
-		vertices = new Vector3[numberOfVertices];
-		normals = new Vector3[numberOfVertices];
-		uv = new Vector2[numberOfVertices];
+		if (m_originalCircle.Length == 0)
+			m_originalCircle = DefineCircle(ringVertexCount, radius);
+		
+		// Rotate and translate the original circle to get vertices.
+		vertices = TranslatePoints(m_originalCircle, Vector3.zero, center);
+		vertices = RotatePoints(vertices, Vector3.forward, facing);
+		
+		// Make normals point to the center.
+		normals = new Vector3[m_originalCircle.Length];
+		for (int i = 0; i < m_originalCircle.Length; i++)
+			normals[i] = vertices[i] - center;
+
+	}
+
+	/// <summary>
+	/// Given two rings of vertices, define the triangles needed to create a
+	/// cylinder capped by the two rings (the cylinder can have sloped or
+	/// variable-radius ends).
+	/// </summary>
+	/// <param name="c0Vertices">First circle. Must have the same number of vertices
+	/// as circle1.</param>
+	/// <param name="c1Vertices">Second circle. Must have the same number of vertices
+	/// as circle0.</param>
+	/// <param name="c0Normals">First circle's normals.</param>
+	/// <param name="c1Normals">Second circle's normals.</param>
+	/// <param name="cylinderVertices">Combined vertices arrays of the two circles.</param>
+	/// <param name="cylinderNormals">Combined normals arrays of the two circles.</param>
+	/// <param name="cylinderTriangles">The Cylinder's triangles.</param>
+	/// <param name="uvs">The cylinder's UVs.</param>
+	/// <returns></returns>
+	private void DefineCylinder(Vector3[] c0Vertices, Vector3[] c1Vertices,
+		Vector3[] c0Normals, Vector3[] c1Normals, out Vector3[] cylinderVertices,
+		out Vector3[] cylinderNormals, out int[] cylinderTriangles, out Vector2[] uvs)
+	{
+		if (c0Vertices.Length != c1Vertices.Length)
+			Debug.LogError("A cylinder requires each end cap to have the same" +
+				" number of vertices.");
+		
+		// Length of circle vertex arrays.
+		int lenC = c0Vertices.Length;
+
+		// Copy the vertices and normals to the cylindar.
+		cylinderVertices = new Vector3[lenC * 2];
+		cylinderNormals = new Vector3[lenC * 2];
+		c0Vertices.CopyTo(cylinderVertices, 0);
+		c1Vertices.CopyTo(cylinderVertices, lenC);
+		c0Normals.CopyTo(cylinderNormals, 0);
+		c1Normals.CopyTo(cylinderNormals, lenC);
+
+		// Define the triangles.
+		cylinderTriangles = new int[lenC * 6];
+		// Define most of the triangles. Keep in mind that a cylinder is a bunch
+		// of rectangles stuck together (think of a wooden barrel).
+		for (int i = 0; i < lenC; i++)
+		{
+			// TODO: Make sure the triangles are defined in the right order.
+			// The vertices for each triangle must be numbered in the clockwise
+			// direction when viewed, otherwise the face normals will point in
+			// the wrong direction (away from the camera).
+			
+			// Top left triangle.
+			cylinderTriangles[i + 6 * i] = i;
+			cylinderTriangles[i + 1 + 6 * i] = i + lenC;
+			cylinderTriangles[i + 2 + 6 * i] = i + 1;
+			// Bottom right triangle.
+			cylinderTriangles[i + 3 + 6 * i] = i + lenC;
+			cylinderTriangles[i + 4 + 6 * i] = i + lenC + 1;
+			cylinderTriangles[i + 5 + 6 * i] = i + 1;
+		}
+		// Define the last two triangles.
+		// Top left triangle.
+		cylinderTriangles[lenC + 6 * lenC] = lenC - 1;
+		cylinderTriangles[lenC + 1 + 6 * lenC] = 2 * lenC - 1;
+		cylinderTriangles[lenC + 2 + 6 * lenC] = 0;
+		// Bottom right triangle.
+		cylinderTriangles[lenC + 3 + 6 * lenC] = 2 * lenC - 1;
+		cylinderTriangles[lenC + 4 + 6 * lenC] = lenC;
+		cylinderTriangles[lenC + 5 + 6 * lenC] = 0;
+		
+
+		// TODO: Define cylinder UVs.
+		// Define the UVs.
+		uvs = new Vector2[cylinderVertices.Length];
+
 	}
 
 	/// <summary>
@@ -98,6 +161,16 @@ public class TubeGenerator : MonoBehaviour
 		return translatedPoints;
 	}
 
+	/// <summary>
+	/// Rotate a cloud of points.
+	/// </summary>
+	/// <param name="points">The current positions of all points to rotate.</param>
+	/// <param name="oldDirection">A vector giving the current "forward" direction
+	/// of the point cloud (this is an arbitrary choice).</param>
+	/// <param name="newDirection">A vector representing the new direction for
+	/// the points to face. The cloud will rotate such that its "forward"
+	/// facing side will now point in this direction.</param>
+	/// <returns></returns>
 	public static Vector3[] RotatePoints(Vector3[] points, Vector3 oldDirection,
 		Vector3 newDirection)
 	{
