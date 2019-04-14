@@ -6,7 +6,7 @@ using UnityEngine.TestTools;
 
 namespace Tests
 {	
-	public class TubeGenerator_Tests
+	public class MeshUtilities_Tests
 	{
 		/// <summary>
 		/// Call DefineCircle and verify that all returned points are at the
@@ -29,7 +29,7 @@ namespace Tests
 				for (int j = 1; j <= 5; j++)
 				{
 					// Create a circle.
-					circle = TubeGenerator.DefineCircle(i, j);
+					circle = MeshUtilities.DefineCirclePoints(i, j);
 					Assert.That(circle.Length, Is.EqualTo(i), "Wrong number of " +
 						"points returned.");
 					existingPoints = new HashSet<Vector3>();
