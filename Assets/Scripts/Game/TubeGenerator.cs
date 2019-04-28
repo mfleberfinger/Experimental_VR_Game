@@ -40,12 +40,15 @@ public class TubeGenerator : MonoBehaviour
 		MeshFilter MF = GO.AddComponent<MeshFilter>();
 		GO.AddComponent<MeshRenderer>();
 		
-		MeshUtilities.DefineCircleArrays(Vector3.zero, Vector3.up, ringVertexCount,
+		Vector3 c0Center = Vector3.zero;
+		Vector3 c1Center = Vector3.forward * segmentLength;
+
+		MeshUtilities.DefineCircleArrays(c0Center, Vector3.up, ringVertexCount,
 			radius, out verticesC0, out normalsC0);
-		MeshUtilities.DefineCircleArrays(Vector3.forward * segmentLength, Vector3.up, ringVertexCount,
+		MeshUtilities.DefineCircleArrays(c1Center, Vector3.up, ringVertexCount,
 			radius, out verticesC1, out normalsC1);
 		MeshUtilities.DefineCylinderArrays(verticesC0, verticesC1, normalsC0,
-			normalsC1, out vertices, out normals, out triangles, out uv);
+			normalsC1, c0Center, c1Center, out vertices, out normals, out triangles, out uv);
 		MF.mesh = MeshUtilities.BuildMesh(vertices, triangles, normals, uv);
 		//-----------------TODO: delete test code-----------------
 	}
