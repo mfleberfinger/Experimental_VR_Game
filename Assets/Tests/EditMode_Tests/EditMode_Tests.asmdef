@@ -2,7 +2,9 @@
     "name": "EditMode_Tests",
     "references": [
         "EditorScriptAssembly",
-        "GameLogic"
+        "GameLogic",
+        "UnityEngine.SpatialTracking",
+        "UnityEditor.SpatialTracking"
     ],
     "optionalUnityReferences": [
         "TestAssemblies"
@@ -15,5 +17,6 @@
     "overrideReferences": false,
     "precompiledReferences": [],
     "autoReferenced": true,
-    "defineConstraints": []
+    "defineConstraints": [],
+    "versionDefines": []
 }
