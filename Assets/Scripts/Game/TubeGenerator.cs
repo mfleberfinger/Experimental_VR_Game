@@ -42,7 +42,7 @@ public class TubeGenerator : MonoBehaviour
 		
 		MeshUtilities.DefineCircleArrays(Vector3.zero, Vector3.up, ringVertexCount,
 			radius, out verticesC0, out normalsC0);
-		MeshUtilities.DefineCircleArrays(Vector3.forward * 3f, Vector3.up, ringVertexCount,
+		MeshUtilities.DefineCircleArrays(Vector3.forward * segmentLength, Vector3.up, ringVertexCount,
 			radius, out verticesC1, out normalsC1);
 		MeshUtilities.DefineCylinderArrays(verticesC0, verticesC1, normalsC0,
 			normalsC1, out vertices, out normals, out triangles, out uv);

@@ -191,6 +191,14 @@ public class MeshUtilities
 		// TODO: Define cylinder UVs.
 		// Define the UVs.
 		uv = new Vector2[cylinderVertices.Length];
+		float uvSize = 1 / lenC;
+		for (int i = 0; i < lenC; i++)
+		{
+			// One end of the cylinder (circle 0).
+			uv[i] = new Vector2(0, i * uvSize);
+			// The other end of the cylinder (circle 1).
+			uv[i + lenC] = new Vector2(1, i * uvSize);
+		}
 	}
 
 	/// <summary>
