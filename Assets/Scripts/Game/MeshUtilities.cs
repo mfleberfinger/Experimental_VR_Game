@@ -133,19 +133,14 @@ public class MeshUtilities
 	/// as circle0.</param>
 	/// <param name="c0Normals">First circle's normals.</param>
 	/// <param name="c1Normals">Second circle's normals.</param>
-	/// <param name="c0Center">First circle's center point (used to calculate the
-	/// normals for extra vertices added for UV mapping).</param>
-	/// /// <param name="c1Center">Second circle's center point (used to calculate the
-	/// normals for extra vertices added for UV mapping).</param>
 	/// <param name="cylinderVertices">Combined "vertices" arrays of the two circles.</param>
 	/// <param name="cylinderNormals">Combined "normals" arrays of the two circles.</param>
 	/// <param name="cylinderTriangles">The Cylinder's triangles.</param>
 	/// <param name="uv">The cylinder's UVs.</param>
 	/// <returns></returns>
 	public static void DefineCylinderArrays(Vector3[] c0Vertices, Vector3[] c1Vertices,
-		Vector3[] c0Normals, Vector3[] c1Normals, Vector3 c0Center, Vector3 c1Center,
-		out Vector3[] cylinderVertices, out Vector3[] cylinderNormals,
-		out int[] cylinderTriangles, out Vector2[] uv)
+		Vector3[] c0Normals, Vector3[] c1Normals, out Vector3[] cylinderVertices,
+		out Vector3[] cylinderNormals, out int[] cylinderTriangles, out Vector2[] uv)
 	{
 		if (c0Vertices.Length != c1Vertices.Length)
 			Debug.LogError("A cylinder requires each end cap to have the same" +
@@ -154,10 +149,9 @@ public class MeshUtilities
 		// Length of circle vertex arrays.
 		int lenC = c0Vertices.Length;
 
-		// Copy the vertices and normals to the cylinder. Add space to the arrays
-		// for two extra vertices to be used for UV mapping.
-		cylinderVertices = new Vector3[lenC * 2 + 2];
-		cylinderNormals = new Vector3[lenC * 2 + 2];
+		// Copy the vertices and normals to the cylinder.
+		cylinderVertices = new Vector3[lenC * 2];
+		cylinderNormals = new Vector3[lenC * 2];
 		c0Vertices.CopyTo(cylinderVertices, 0);
 		c1Vertices.CopyTo(cylinderVertices, lenC);
 		c0Normals.CopyTo(cylinderNormals, 0);
@@ -192,36 +186,36 @@ public class MeshUtilities
 		cylinderTriangles[6 * lenC - 3] = 2 * lenC - 1;
 		cylinderTriangles[6 * lenC - 2] = lenC;
 		cylinderTriangles[6 * lenC - 1] = 0;
-		
 
-		// TODO: Define cylinder UVs.
 		// Define the UVs.
+		// We will double the texture over the circumference of the cylinder to
+		// allow the texture to wrap seamlessly around the cylinder.
 		uv = new Vector2[cylinderVertices.Length];
-		float uvSize = 1 / lenC;
-		for (int i = 0; i < lenC; i++)
+		int halfLenC = lenC / 2;
+		float uvSize = 1f / (halfLenC);
+		for(int i = 0; i < halfLenC; i++)
 		{
 			// One end of the cylinder (circle 0).
 			uv[i] = new Vector2(0, i * uvSize);
 			// The other end of the cylinder (circle 1).
 			uv[i + lenC] = new Vector2(1, i * uvSize);
 		}
-		// Add 2 extra vertices to be used for UV mapping. The extra vertices will
-		// allow the texture to wrap around the cylinder by allowing its
-		// coordinates to start and end in the same place...
-
-		// Circle 0 extra vertex
-		cylinderVertices[cylinderVertices.Length - 2] =
-			new Vector3(cylinderVertices[0].x, cylinderVertices[0].y, cylinderVertices[0].z);
-		cylinderNormals[cylinderNormals.Length - 2] =
-			cylinderVertices[cylinderVertices.Length - 2] - c0Center;
-		uv[uv.Length - 2] = new Vector2(0, 1);
-		// Circle 1 extra Vertex
-		cylinderVertices[cylinderVertices.Length - 1] =
-			new Vector3(cylinderVertices[0].x, cylinderVertices[0].y, cylinderVertices[0].z);
-		cylinderNormals[cylinderNormals.Length - 1] =
-			cylinderVertices[cylinderVertices.Length - 1] - c1Center;
-		uv[uv.Length - 1] = new Vector2(1, 1);
-
+		// Calculate the number of vertices that still need UVs based on integer
+		// division to properly handle the case where lenC is odd.
+		int remain = lenC - halfLenC;
+		uvSize = 1f / (remain - 1);
+		int j = halfLenC;
+		// Count down to reverse the UVs for this "half" of the cylinder.
+		// This is to aovid creating a discontinuous jump from 1 to 0 or 0 to 1
+		// in the space of one vertex pair.
+		for(int i = lenC; i > halfLenC; i--)
+		{
+			// One end of the cylinder (circle 0).
+			uv[j] = new Vector2(0, (i - remain - 1) * uvSize);
+			// The other end of the cylinder (circle 1).
+			uv[j + lenC] = new Vector2(1, (i - remain - 1) * uvSize);
+			j++;
+		}
 	}
 
 	/// <summary>

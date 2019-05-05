@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -48,7 +47,7 @@ public class TubeGenerator : MonoBehaviour
 		MeshUtilities.DefineCircleArrays(c1Center, Vector3.up, ringVertexCount,
 			radius, out verticesC1, out normalsC1);
 		MeshUtilities.DefineCylinderArrays(verticesC0, verticesC1, normalsC0,
-			normalsC1, c0Center, c1Center, out vertices, out normals, out triangles, out uv);
+			normalsC1, out vertices, out normals, out triangles, out uv);
 		MF.mesh = MeshUtilities.BuildMesh(vertices, triangles, normals, uv);
 		//-----------------TODO: delete test code-----------------
 	}
