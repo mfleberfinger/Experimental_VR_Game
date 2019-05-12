@@ -98,8 +98,9 @@ public class MeshUtilities
 	/// <param name="normals">Array to store the calculated normals.</param>
 	/// <param name="vertexCount">Number of vertices to use in the circle.</param>
 	/// <param name="radius">Radius of the circle.</param>
-	public static void DefineCircleArrays(Vector3 center, Vector3 facing, int vertexCount,
-		float radius, out Vector3[] vertices, out Vector3[] normals)
+	public static void DefineCircleArrays(Vector3 center, Vector3 facing,
+		int vertexCount, float radius, out Vector3[] vertices,
+		out Vector3[] normals)
 	{
 		// Since this works by translating and rotating a circle of vertices,
 		// with a predefined position and rotation, we will cache such a circle
