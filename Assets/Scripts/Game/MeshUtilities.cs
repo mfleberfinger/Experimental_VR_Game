@@ -145,6 +145,10 @@ public class MeshUtilities
 		if (c0Vertices.Length != c1Vertices.Length)
 			Debug.LogError("A cylinder requires each end cap to have the same" +
 				" number of vertices.");
+
+		if (c0Vertices.Length % 2 != 0)
+			Debug.LogError("Cylinder generation requires circles to have an" +
+				" even number of vertices for proper UV mapping.");
 		
 		// Length of circle vertex arrays.
 		int lenC = c0Vertices.Length;
@@ -163,11 +167,6 @@ public class MeshUtilities
 		// of rectangles stuck together (think of a wooden barrel).
 		for (int i = 0; i < lenC; i++)
 		{
-			// TODO: Make sure the triangles are defined in the right order.
-			// The vertices for each triangle must be numbered in the clockwise
-			// direction when viewed, otherwise the face normals will point in
-			// the wrong direction (away from the camera).
-			
 			// Top left triangle.
 			cylinderTriangles[0 + 6 * i] = i;
 			cylinderTriangles[1 + 6 * i] = i + lenC;
@@ -193,27 +192,22 @@ public class MeshUtilities
 		uv = new Vector2[cylinderVertices.Length];
 		int halfLenC = lenC / 2;
 		float uvSize = 1f / (halfLenC);
-		for(int i = 0; i < halfLenC; i++)
+		// Map half of the cylinder's circumference.
+		for (int i = 0; i < halfLenC; i++)
 		{
 			// One end of the cylinder (circle 0).
 			uv[i] = new Vector2(0, i * uvSize);
 			// The other end of the cylinder (circle 1).
 			uv[i + lenC] = new Vector2(1, i * uvSize);
 		}
-		// Calculate the number of vertices that still need UVs based on integer
-		// division to properly handle the case where lenC is odd.
-		int remain = lenC - halfLenC;
-		uvSize = 1f / (remain - 1);
-		int j = halfLenC;
-		// Count down to reverse the UVs for this "half" of the cylinder.
-		// This is to aovid creating a discontinuous jump from 1 to 0 or 0 to 1
-		// in the space of one vertex pair.
-		for(int i = lenC; i > halfLenC; i--)
+		// Map the other half of the circumference.
+		int j = 0;
+		for (int i = halfLenC; i < lenC; i++)
 		{
 			// One end of the cylinder (circle 0).
-			uv[j] = new Vector2(0, (i - remain - 1) * uvSize);
+			uv[i] = new Vector2(0, 1 - (j * uvSize));
 			// The other end of the cylinder (circle 1).
-			uv[j + lenC] = new Vector2(1, (i - remain - 1) * uvSize);
+			uv[i + lenC] = new Vector2(1, 1 - (j * uvSize));
 			j++;
 		}
 	}
