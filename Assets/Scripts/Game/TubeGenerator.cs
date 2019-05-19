@@ -58,8 +58,8 @@ public class TubeGenerator : MonoBehaviour
 		Vector2[] uv;
 		Vector3[] vertices;
 		Vector3[] normals;
-		Vector3 localPreviousFacing;
-		Vector3 localFacing;
+		Vector3 c0Facing;
+		Vector3 c1Facing;
 		Vector3 c0Center;
 		Vector3 c1Center;
 		int[] triangles;
@@ -69,15 +69,15 @@ public class TubeGenerator : MonoBehaviour
 
 		// Create and position the segment.
 		GO.transform.position = m_startOfSegment;
-		//GO.transform.LookAt(transform.position);
+		GO.transform.forward = transform.forward;
 		// The mesh must be defined using the local coordinates of its parent gameObject.
-		localPreviousFacing = GO.transform.InverseTransformDirection(m_previousFacing);
-		localFacing = GO.transform.InverseTransformDirection(transform.forward);
+		c0Facing = GO.transform.InverseTransformDirection(m_previousFacing);
+		c1Facing = Vector3.zero;//GO.transform.InverseTransformDirection(transform.forward);
 		c0Center = GO.transform.InverseTransformPoint(m_startOfSegment);
 		c1Center = GO.transform.InverseTransformPoint(transform.position);
-		MeshUtilities.DefineCircleArrays(c0Center, localPreviousFacing, ringVertexCount,
+		MeshUtilities.DefineCircleArrays(c0Center, c0Facing, ringVertexCount,
 			radius, out verticesC0, out normalsC0);
-		MeshUtilities.DefineCircleArrays(c1Center, localFacing, ringVertexCount,
+		MeshUtilities.DefineCircleArrays(c1Center, c1Facing, ringVertexCount,
 			radius, out verticesC1, out normalsC1);
 		MeshUtilities.DefineCylinderArrays(verticesC0, verticesC1, normalsC0,
 			normalsC1, out vertices, out normals, out triangles, out uv);
