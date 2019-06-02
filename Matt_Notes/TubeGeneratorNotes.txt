@@ -14,14 +14,15 @@ The tube generator game object will follow the same path as
 		(x, y, z) is the position in the Unity scene's world space, and
 		xpx, xpy, ypx, and ypy are randomly generated at the start of
 		the game and remain constant thereafter.
-		x = Perlin(z + xpx, ypx) - Perlin(xpx, ypx)
-		y = Perlin(z + xpy, ypy) - Perlin(xpy, ypy)
-
-		Important: The player's speed along the path will be controlled
-			(either constant or steadily increasing) by being controlled
-			between the points defined by this math. The math is only
-			defining the path that will be followed by the player, to
-			which the tube generator will be attached.
+		x = PerlinBasedFunction(z + xpx, ypx) - PerlinBasedFunction(xpx, ypx)
+		y = PerlinBasedFunction(z + xpy, ypy) - PerlinBasedFunction(xpy, ypy)
+		+ The player's and tube generator's speed will be controlled along the
+			z axis. The x and y coordinate will be chosen based on the current
+			z coordinate. The tube generator will be made to face in the
+			direction of travel (probably by calculating its next point based
+			on the speed and facing that) to make sure the segment ends face in
+			the correct directions. The player will be pulled along with some
+			object that will always be kept on the path.
 
 
 __Tube Generator__
