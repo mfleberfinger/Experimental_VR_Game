@@ -1,5 +1,9 @@
 ﻿using UnityEngine;
 
+/// <summary>
+/// Class to define a random path and return points along that path in Unity
+/// world coordinates.
+/// </summary>
 public class PathGenerator
 {
 	// Initial PerlinNoise coordinates for controlling the x position of the follower.

@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections;
 
 /// <summary>
 /// A script that causes the gameobject to which it is attached to move forward
@@ -10,8 +11,15 @@ public class PathFollower : MonoBehaviour
 	public float speed = 10f;
 	[Tooltip("Random number generator seed for path generation.")]
 	public string seed = "seed";
+	[Tooltip ("If true, the rotation of the object is controlled by this script.")]
+	public bool controlRotation = true;
+	[Tooltip("Seconds to wait before movement starts.")]
+	public float startingDelay = 0f;
 
+	// Object used to define and get points on the path.
 	private PathGenerator pathGenerator;
+	// Bool used to delay moving the follower.
+	private bool started;
 
 	private void Start()
 	{
@@ -24,8 +32,13 @@ public class PathFollower : MonoBehaviour
 	
 	private void Update()
 	{
-		float z = transform.position.z + speed * Time.deltaTime;
-		Move(z);
+		if (started)
+		{
+			float z = transform.position.z + speed * Time.deltaTime;
+			Move(z);
+		}
+		else
+			started = Time.time > startingDelay;
 	}
 
 	/// <summary>
@@ -38,7 +51,8 @@ public class PathFollower : MonoBehaviour
 		// TODO: If using the physics engine, this will need to change.
 		Vector3 nextPosition = pathGenerator.GetPoint(z);
 		
-		transform.LookAt(nextPosition);
+		if (controlRotation)
+			transform.LookAt(nextPosition);
 		transform.position = nextPosition;
 	}
 }
