@@ -10,9 +10,11 @@ public class PathGenerator
 	float m_xpx, m_ypx;
 	// Initial PerlinNoise coordinates for controlling the y position of the follower.
 	float m_xpy, m_ypy;
+	// Initial PerlinNoise coordinates for controlling the z position of the follower.
+	float m_xpz, m_ypz;
 	// Initial PerlinNoise() return values, used to ensure that the patch will
 	// always start at Unity's scene origin.
-	float initialXPerlin, initialYPerlin;
+	float initialXPerlin, initialYPerlin, initialZPerlin;
 
 	/// <summary>
 	/// Constructor. Takes a seed and initializes values needed for use with
@@ -36,20 +38,26 @@ public class PathGenerator
 		m_ypx = Random.value;
 		m_xpy = Random.value;
 		m_ypy = Random.value;
+		m_xpz = Random.value;
+		m_ypz = Random.value;
 		initialXPerlin = PerlinFunction(m_xpx, m_ypx);
 		initialYPerlin = PerlinFunction(m_xpy, m_ypy);
+		initialZPerlin = PerlinFunction(m_xpz, m_ypz);
 	}
 
 	/// <summary>
-	/// Generates the x and y coordinates along the path for a given z coordinate.
+	/// Generates the x, y, and z coordinates along the path for a given value
+	/// of w. The "w" can be thought of as a fourth spatial dimension or as an
+	/// arbitrary parameter to the Perlin noise functions.
 	/// </summary>
 	/// <param name="z">Some world space z-coordinate.</param>
 	/// <returns>The point along the procedurally generated path with the given
-	/// z-coordinate.</returns>
-	public Vector3 GetPoint(float z)
+	/// w-coordinate.</returns>
+	public Vector3 GetPoint(float w)
 	{
-		float x = PerlinFunction(z + m_xpx, m_ypx) - initialXPerlin;
-		float y = PerlinFunction(z + m_xpy, m_ypy) - initialYPerlin;
+		float x = PerlinFunction(w + m_xpx, m_ypx) - initialXPerlin;
+		float y = PerlinFunction(w + m_xpy, m_ypy) - initialYPerlin;
+		float z = PerlinFunction(w + m_xpz, m_ypz) - initialZPerlin;
 		return new Vector3(x, y, z);
 	}
 
@@ -60,6 +68,6 @@ public class PathGenerator
 	/// <param name="z"></param>
 	private float PerlinFunction(float x, float y)
 	{
-		return 100f * Mathf.PerlinNoise(x, y);
+		return 1000f * Mathf.PerlinNoise(x, y);
 	}
 }

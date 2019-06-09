@@ -20,11 +20,14 @@ public class PathFollower : MonoBehaviour
 	private PathGenerator pathGenerator;
 	// Bool used to delay moving the follower.
 	private bool started;
+	// Imaginary forth dimension used as a parameter to the path generator.
+	// Can also be thought of as an arbitrary time based parameter.
+	private float w;
 
 	private void Start()
 	{
 		pathGenerator = new PathGenerator(seed);
-		
+		w = 0;
 		// The follower is assumed to start at 0.
 		transform.position = Vector3.zero;
 	}
@@ -34,8 +37,8 @@ public class PathFollower : MonoBehaviour
 	{
 		if (started)
 		{
-			float z = transform.position.z + speed * Time.deltaTime;
-			Move(z);
+			w = w + speed * Time.deltaTime;
+			Move(w);
 		}
 		else
 			started = Time.time > startingDelay;
@@ -45,11 +48,11 @@ public class PathFollower : MonoBehaviour
 	/// Move the game object to which this is attached. Make sure it faces in
 	/// the direction of travel.
 	/// </summary>
-	/// <param name="z">The z-coordinate to move to.</param>
-	private void Move(float z)
+	/// <param name="z">The w-coordinate to move to.</param>
+	private void Move(float w)
 	{
 		// TODO: If using the physics engine, this will need to change.
-		Vector3 nextPosition = pathGenerator.GetPoint(z);
+		Vector3 nextPosition = pathGenerator.GetPoint(w);
 		
 		if (controlRotation)
 			transform.LookAt(nextPosition);
