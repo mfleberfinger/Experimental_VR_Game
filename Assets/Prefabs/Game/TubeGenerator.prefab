@@ -126,3 +126,4 @@ MonoBehaviour:
   seed: seed
   controlRotation: 1
   startingDelay: 0
+  maxSlope: 0.5

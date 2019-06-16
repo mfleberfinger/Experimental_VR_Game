@@ -310,6 +310,7 @@ MonoBehaviour:
   seed: seed
   controlRotation: 0
   startingDelay: 5
+  maxSlope: 0.5
 --- !u!114 &1222736147530047197
 MonoBehaviour:
   m_ObjectHideFlags: 0
