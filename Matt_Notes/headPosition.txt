@@ -1,0 +1,34 @@
+The player's head needs to stay inside the tube when playing the game.
+
+The player's head needs to be positioned near the center of the tube when the
+	player is sitting or standing comfortably.
+
+
+Possible Solutions:
+	
+	Initial centering:
+		- Find the player's height, then move the floor offset so their head
+			will be centered vertically within the tube. 
+			+ Even if it is possible to get the height that the player set while
+				configuring their headset, this ignores the possibility that
+				more than one person uses the headset or that the player may
+				want to play the game while sitting.
+			+ In the case of the rift, the distance between the floor and the
+				head's current position seems to be what is known.
+		- At the start of the game, set the floor offset so that the player's
+			head is within the tube.
+			+ When Start() is called, it appears that the headset has not started
+				being tracked (or at least the tracked pose driver hasn't
+				updated the position of the object to which it is attached).
+		- For testing, possibly add a button to re-center the head during
+			gameplay. This is not viable for release because it would allow the
+			player to instantly move to the center of the tunnel.
+		- Provide a menu option to set the neutral/centered position to the
+			player's current head position.
+			+ This is probably the best choice.
+
+	Staying Inside the Tube:
+		- If the player's head is ever outside the bounds of the tube, move the
+			flooroffset to put the player's head back inside (alternatively, if the
+			player is only allowed to be hit once, count this as a loss and end the
+			game).
